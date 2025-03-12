@@ -1,10 +1,13 @@
 use std::process::Command;
 use super::manager::LanguageManager;
+use crate::utils::ensure_tool_installed;
 
 pub struct FlutterManager;
 
 impl LanguageManager for FlutterManager {
     fn setup_env(&self, name: &str, version: &str) {
+        ensure_tool_installed("fvm", "fvm");
+
         let output = Command::new("fvm")
         .arg("install")
         .arg(version)

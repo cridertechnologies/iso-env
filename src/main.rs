@@ -1,4 +1,5 @@
 mod languages;
+mod utils;
 
 use clap::{Parser, Subcommand};
 use std::process::exit;
@@ -20,7 +21,7 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     /// Create a new isolated environment
-    Create { name: String, lang: String, version: String },
+    Create { name: String, lang: String, version: Option<String> },
 
     /// Switch to an existing environment
     Use { name: String },
@@ -42,7 +43,10 @@ fn main() {
     let managers = get_language_managers();
 
     match cli.command {
-        Commands::Create { name, lang, version } => create_project(name, lang, version, &managers),
+        Commands::Create { name, lang, version } => {
+            let version = version.unwrap_or_else(|| "latest".to_string());
+            create_project(name, lang, version, &managers);
+        },
         Commands::Use { name } => switch_environment(name),
         Commands::List => list_projects(),
     }

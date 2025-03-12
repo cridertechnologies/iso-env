@@ -1,10 +1,13 @@
 use std::process::Command;
 use super::manager::LanguageManager;
+use crate::utils::ensure_tool_installed;
 
 pub struct NodeManager;
 
 impl LanguageManager for NodeManager {
     fn setup_env(&self, name: &str, version: &str) {
+        ensure_tool_installed("nvm", "nvm");
+
         let output = Command::new("nvm")
         .arg("install")
         .arg(version)

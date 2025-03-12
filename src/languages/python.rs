@@ -1,10 +1,13 @@
 use std::process::Command;
 use super::manager::LanguageManager;
+use crate::utils::ensure_tool_installed;
 
 pub struct PythonManager;
 
 impl LanguageManager for PythonManager {
     fn setup_env(&self, name: &str, version: &str) {
+        ensure_tool_installed("pyenv", "pyenv");
+
         let output = Command::new("pyenv")
         .arg("install")
         .arg(version)
