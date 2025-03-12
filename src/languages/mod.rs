@@ -3,6 +3,7 @@ pub mod python;
 pub mod node;
 pub mod flutter;
 pub mod dotnet;
+pub mod rust;
 
 use std::collections::HashMap;
 use flutter::FlutterManager;
@@ -10,6 +11,7 @@ use manager::LanguageManager;
 use dotnet::DotnetManager;
 use node::NodeManager;
 use python::PythonManager;
+use rust::RustManager;
 
 /// Register all supported languages
 pub fn get_language_managers() -> HashMap<String, Box<dyn LanguageManager>> {
@@ -21,5 +23,7 @@ pub fn get_language_managers() -> HashMap<String, Box<dyn LanguageManager>> {
     managers.insert("react".to_string(), Box::new(NodeManager) as Box<dyn LanguageManager>);
     managers.insert("angular".to_string(), Box::new(NodeManager) as Box<dyn LanguageManager>);
     managers.insert("python".to_string(), Box::new(PythonManager) as Box<dyn LanguageManager>);
+    managers.insert("rust".to_string(), Box::new(RustManager) as Box<dyn LanguageManager>);
+    
     managers
 }

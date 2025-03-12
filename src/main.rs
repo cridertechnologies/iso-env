@@ -92,6 +92,7 @@ fn switch_environment(name: String) {
 
     if let Some(manager) = get_language_managers().get(&config.language) {
         manager.switch_env(&config.version);
+        println!("Switched to environment {}", name);
     } else {
         println!("Unsupported language: {}", config.language);
     }
